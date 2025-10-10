@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    @Binding var isLoggedIn: Bool
+
     var body: some View {
         VStack {
             Text("ReCoShelf")
@@ -19,7 +21,9 @@ struct WelcomeView: View {
             TextField("Password", text: .constant(""))
                 .textFieldStyle(.roundedBorder)
             
-            Button(action: {}) {
+            Button(action: {
+                isLoggedIn = true
+            }) {
                 Text("Login")
                     .frame(maxWidth: .infinity)
             }
@@ -31,5 +35,5 @@ struct WelcomeView: View {
 }
 
 #Preview {
-    WelcomeView()
+    WelcomeView(isLoggedIn: .constant(false))
 }
