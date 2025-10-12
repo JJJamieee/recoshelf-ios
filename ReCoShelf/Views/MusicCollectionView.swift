@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct MusicCollectionView: View {
+    @State private var releases: [Release] = [
+        Release(title: "Album1", artist: "Artist1", releaseYear: "1999"),
+        Release(title: "Album2", artist: "Artist2", releaseYear: "2003"),
+    ]
+    
     var body: some View {
         VStack {
             HStack {
@@ -27,9 +32,13 @@ struct MusicCollectionView: View {
             .buttonStyle(.plain)
             
             List {
-                MusicCollectionItemView(title: "Album1", artist: "Artist1", releaseYear: "1999")
-                
-                MusicCollectionItemView(title: "Album2", artist: "Artist2", releaseYear: "2003")
+                ForEach(releases) { release in
+                    MusicCollectionItemView(
+                        title: release.title,
+                        artist: release.artist,
+                        releaseYear: release.releaseYear
+                    )
+                }
             }
             .listStyle(.plain)
         }
