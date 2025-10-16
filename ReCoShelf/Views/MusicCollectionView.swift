@@ -9,8 +9,8 @@ import SwiftUI
 
 struct MusicCollectionView: View {
     @State private var releases: [Release] = [
-        Release(title: "Album1", artist: "Artist1", releaseYear: "1999"),
-        Release(title: "Album2", artist: "Artist2", releaseYear: "2003"),
+        Release(title: "Album1", artists: ["Artist1"], releaseYear: "1999", country: "Japan", genres: ["POP"], tracklist: []),
+        Release(title: "Album2", artists: ["Artist2", "Artist3"], releaseYear: "2003", country: "America", genres: ["JAZZ"], tracklist: []),
     ]
     
     var body: some View {
@@ -35,7 +35,7 @@ struct MusicCollectionView: View {
                 ForEach(releases) { release in
                     MusicCollectionItemView(
                         title: release.title,
-                        artist: release.artist,
+                        artist: release.artists.joined(separator: ", "),
                         releaseYear: release.releaseYear
                     )
                 }
