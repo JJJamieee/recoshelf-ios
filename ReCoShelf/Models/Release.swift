@@ -11,6 +11,10 @@ struct Release: Identifiable {
     let id = UUID()
     
     var title: String
-    var artist: String
+    var artists: [String]
     var releaseYear: String
+    var country: String
+    var genres: [String]
+    var tracklist: [Track]
+    var imageURL: URL?
 }

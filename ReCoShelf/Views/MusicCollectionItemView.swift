@@ -26,12 +26,7 @@ struct MusicCollectionItemView: View {
             
             Text(releaseYear)
                 .foregroundStyle(.secondary)
-            
-            Button(action: {}) {
-                Image(systemName: "ellipsis.circle")
-            }
         }
-        .buttonStyle(PlainButtonStyle())
     }
 }
 
