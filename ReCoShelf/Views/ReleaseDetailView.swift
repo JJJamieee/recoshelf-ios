@@ -8,33 +8,27 @@
 import SwiftUI
 
 struct ReleaseDetailView: View {
+    let release: Release
+    
     var body: some View {
         VStack {
-            Button(action: {}) {
-                Image(systemName: "arrow.left.circle")
-            }
-            .font(.title)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.leading)
-            
-            AsyncImage(url: URL(string: "https://example.com/icon.png"))
+            AsyncImage(url: release.imageURL)
                 .frame(width: 200, height: 200)
             
             VStack(alignment: .leading) {
-                Text("Album1")
+                Text(release.title)
                     .font(.title)
                     .padding(.vertical, 5)
-                Text("Artist1")
-                Text("UK / 2012")
+                Text(release.artists.joined(separator: ", "))
+                Text("\(release.country) / \(release.releaseYear)")
                     .foregroundStyle(.secondary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
             
             
-            List {
-                TrackItemView(title: "Track1", duration: "3:05")
-                TrackItemView(title: "Track2", duration: "4:15")
+            List(release.tracklist) { track in
+                TrackItemView(title: track.title, duration: track.duration)
             }
             .listStyle(.plain)
         }
@@ -44,5 +38,5 @@ struct ReleaseDetailView: View {
 }
 
 #Preview {
-    ReleaseDetailView()
+    ReleaseDetailView(release: Release(title: "Album1", artists: ["Artist1"], releaseYear: "1999", country: "Japan", genres: ["POP"], tracklist: [Track(duration: "3:14", title: "Track1"), Track(duration: "4:05", title: "Track2")]))
 }
