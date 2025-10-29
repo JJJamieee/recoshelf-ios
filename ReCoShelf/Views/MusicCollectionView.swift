@@ -12,6 +12,7 @@ struct MusicCollectionView: View {
         Release(title: "Album1", artists: ["Artist1"], releaseYear: "1999", country: "Japan", genres: ["POP"], tracklist: [Track(duration: "3:14", title: "Track1"), Track(duration: "4:05", title: "Track2")]),
         Release(title: "Album2", artists: ["Artist2", "Artist3"], releaseYear: "2003", country: "America", genres: ["JAZZ"], tracklist: [Track(duration: "3:14", title: "Track1"), Track(duration: "4:05", title: "Track2")]),
     ]
+    @State private var showAddReleasePage = false
     
     var body: some View {
         NavigationStack {
@@ -25,12 +26,17 @@ struct MusicCollectionView: View {
                         Image(systemName: "checkmark.circle")
                     }
                     
-                    Button(action: {}) {
+                    Button(action: {
+                        showAddReleasePage = true
+                    }) {
                         Image(systemName: "plus.circle")
                     }
                 }
                 .font(.title)
                 .buttonStyle(.plain)
+                .navigationDestination(isPresented: $showAddReleasePage) {
+                    ScanReleaseBarcodeView()
+                }
                 
                 List(releases) { release in
                     NavigationLink {

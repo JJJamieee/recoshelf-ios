@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0168DC3A2E8A3E6500BF1FFF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0168DC342E8A3E6500BF1FFF /* README.md */; };
+		0168DD0F2EAFB55E00BF1FFF /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 0168DD0E2EAFB55E00BF1FFF /* CodeScanner */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0168DD0F2EAFB55E00BF1FFF /* CodeScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +73,7 @@
 			);
 			name = ReCoShelf;
 			packageProductDependencies = (
+				0168DD0E2EAFB55E00BF1FFF /* CodeScanner */,
 			);
 			productName = ReCoShelf;
 			productReference = 0168DC162E87B48600BF1FFF /* ReCoShelf.app */;
@@ -100,6 +103,9 @@
 			);
 			mainGroup = 0168DC0D2E87B48600BF1FFF;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				0168DD0D2EAFB55E00BF1FFF /* XCRemoteSwiftPackageReference "CodeScanner" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0168DC172E87B48600BF1FFF /* Products */;
 			projectDirPath = "";
@@ -259,8 +265,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ReCoShelf/Preview Content\"";
+				DEVELOPMENT_TEAM = UJ7HQ8R757;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Your camera is used to scan release's barcode.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -287,8 +295,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ReCoShelf/Preview Content\"";
+				DEVELOPMENT_TEAM = UJ7HQ8R757;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Your camera is used to scan release's barcode.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -329,6 +339,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0168DD0D2EAFB55E00BF1FFF /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0168DD0E2EAFB55E00BF1FFF /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0168DD0D2EAFB55E00BF1FFF /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0168DC0E2E87B48600BF1FFF /* Project object */;
 }
