@@ -38,5 +38,5 @@ struct ReleaseDetailView: View {
 }
 
 #Preview {
-    ReleaseDetailView(release: Release(title: "Album1", artists: ["Artist1"], releaseYear: "1999", country: "Japan", genres: ["POP"], tracklist: [Track(duration: "3:14", title: "Track1"), Track(duration: "4:05", title: "Track2")]))
+    ReleaseDetailView(release: Release(id: 1, title: "Album1", artists: ["Artist1"], releaseYear: "1999", country: "Japan", genres: ["POP"], tracklist: [Track(id: 1, duration: "3:14", title: "Track1"), Track(id: 2, duration: "4:05", title: "Track2")]))
 }
