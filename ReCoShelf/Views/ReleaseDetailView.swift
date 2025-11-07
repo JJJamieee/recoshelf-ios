@@ -6,14 +6,29 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ReleaseDetailView: View {
     let release: Release
+    @Environment(\.modelContext) private var context
     
     var body: some View {
         VStack {
             AsyncImage(url: release.imageURL)
                 .frame(width: 200, height: 200)
+            
+            Button {
+                // TODO replace fake data
+                context.insert(Release(id: 1, title: "Album1", artists: ["Artist1"], releaseYear: "1999", country: "Japan", genres: ["POP"], tracklist: [Track(id: 1, duration: "3:14", title: "Track1"), Track(id: 2, duration: "4:05", title: "Track2")]))
+            } label: {
+                Label("Add to My Music Collection", systemImage: "heart.fill")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 30)
+                    .padding(.vertical, 10)
+                    .background(Color.pink)
+                    .clipShape(Capsule())
+            }
             
             VStack(alignment: .leading) {
                 Text(release.title)
@@ -38,5 +53,5 @@ struct ReleaseDetailView: View {
 }
 
 #Preview {
-    ReleaseDetailView(release: Release(title: "Album1", artists: ["Artist1"], releaseYear: "1999", country: "Japan", genres: ["POP"], tracklist: [Track(duration: "3:14", title: "Track1"), Track(duration: "4:05", title: "Track2")]))
+    ReleaseDetailView(release: Release(id: 1, title: "Album1", artists: ["Artist1"], releaseYear: "1999", country: "Japan", genres: ["POP"], tracklist: [Track(id: 1, duration: "3:14", title: "Track1"), Track(id: 2, duration: "4:05", title: "Track2")]))
 }
