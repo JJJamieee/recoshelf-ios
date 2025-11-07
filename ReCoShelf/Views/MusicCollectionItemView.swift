@@ -8,12 +8,25 @@
 import SwiftUI
 
 struct MusicCollectionItemView: View {
+    let id: Int
     let title: String
     let artist: String
     let releaseYear: String
+    let selectedReleaseIds: [Int]
+    @Binding var isEditing: Bool
     
     var body: some View {
         HStack {
+            if isEditing {
+                Button(action: {}) {
+                    if selectedReleaseIds.contains(id) {
+                        Image(systemName: "checkmark.square")
+                    } else {
+                        Image(systemName: "square")
+                    }
+                }
+            }
+
             VStack(alignment: .leading) {
                 Text(title)
                 
@@ -27,9 +40,10 @@ struct MusicCollectionItemView: View {
             Text(releaseYear)
                 .foregroundStyle(.secondary)
         }
+        .contentShape(Rectangle())
     }
 }
 
 #Preview {
-    MusicCollectionItemView(title: "Title", artist: "Artist", releaseYear: "1999")
+    MusicCollectionItemView(id: 1, title: "Title", artist: "Artist", releaseYear: "1999", selectedReleaseIds: [1, 2], isEditing: .constant(false))
 }
