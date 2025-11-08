@@ -13,6 +13,7 @@ struct MusicCollectionView: View {
     @State private var showAddReleasePage = false
     @State private var isEditing = false
     @State private var selectedReleases = Set<Release>()
+    @Environment(\.modelContext) private var context
     
     var body: some View {
         NavigationStack {
@@ -29,11 +30,23 @@ struct MusicCollectionView: View {
                             Image(systemName: "checkmark.circle")
                         }
                     } else {
-                        Button(action: {
-                            isEditing = false
-                            selectedReleases = []
-                        }) {
-                            Image(systemName: "xmark.circle")
+                        if selectedReleases.isEmpty {
+                            Button(action: {
+                                isEditing = false
+                                selectedReleases = []
+                            }) {
+                                Image(systemName: "xmark.circle")
+                            }
+                        } else {
+                            Button(action: {
+                                selectedReleases.forEach { context.delete($0) }
+                                try? context.save()
+                                
+                                isEditing = false
+                                selectedReleases = []
+                            }) {
+                                Image(systemName: "trash.circle")
+                            }
                         }
                     }
                     
