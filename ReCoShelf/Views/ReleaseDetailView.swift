@@ -19,7 +19,7 @@ struct ReleaseDetailView: View {
             
             Button {
                 // TODO replace fake data
-                context.insert(Release(id: 1, title: "Album1", artists: [Artist(id: 1, name: "artist1"), Artist(id: 2, name: "artist2")], releaseYear: "1999", country: "Japan", genres: ["POP"], tracklist: [Track(id: 1, duration: "3:14", title: "Track1"), Track(id: 2, duration: "4:05", title: "Track2")]))
+                context.insert(Release(id: 1, title: "Album1", artists: [Artist(id: 1, name: "artist1"), Artist(id: 2, name: "artist2")], releaseYear: "1999", country: "Japan", genres: ["POP"], tracklist: [Track(position: "1", duration: "3:14", title: "Track1"), Track(position: "2", duration: "4:05", title: "Track2")]))
             } label: {
                 Label("Add to My Music Collection", systemImage: "heart.fill")
                     .font(.headline)
@@ -53,5 +53,5 @@ struct ReleaseDetailView: View {
 }
 
 #Preview {
-    ReleaseDetailView(release: Release(id: 1, title: "Album1", artists: [Artist(id: 1, name: "artist1"), Artist(id: 2, name: "artist2")], releaseYear: "1999", country: "Japan", genres: ["POP"], tracklist: [Track(id: 1, duration: "3:14", title: "Track1"), Track(id: 2, duration: "4:05", title: "Track2")]))
+    ReleaseDetailView(release: Release(id: 1, title: "Album1", artists: [Artist(id: 1, name: "artist1"), Artist(id: 2, name: "artist2")], releaseYear: "1999", country: "Japan", genres: ["POP"], tracklist: [Track(position: "1", duration: "3:14", title: "Track1"), Track(position: "2", duration: "4:05", title: "Track2")]))
 }

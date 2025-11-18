@@ -10,12 +10,14 @@ import SwiftData
 
 @Model
 class Track: Identifiable {
-    var id: Int
+    var id: UUID
+    var position: String
     var duration: String
     var title: String
     
-    init(id: Int, duration: String, title: String) {
-        self.id = id
+    init(position: String, duration: String, title: String) {
+        self.id = UUID()
+        self.position = position
         self.duration = duration
         self.title = title
     }
