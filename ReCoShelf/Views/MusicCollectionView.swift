@@ -70,7 +70,7 @@ struct MusicCollectionView: View {
                             MusicCollectionItemView(
                                 id: release.id,
                                 title: release.title,
-                                artist: release.artists.joined(separator: ", "),
+                                artist: release.artists.map(\.name).joined(separator: ", "),
                                 releaseYear: release.releaseYear,
                                 selectedReleaseIds: selectedReleases.map { $0.id },
                                 isEditing: $isEditing
@@ -84,7 +84,7 @@ struct MusicCollectionView: View {
                             MusicCollectionItemView(
                                 id: release.id,
                                 title: release.title,
-                                artist: release.artists.joined(separator: ", "),
+                                artist: release.artists.map(\.name).joined(separator: ", "),
                                 releaseYear: release.releaseYear,
                                 selectedReleaseIds: selectedReleases.map { $0.id },
                                 isEditing: $isEditing
