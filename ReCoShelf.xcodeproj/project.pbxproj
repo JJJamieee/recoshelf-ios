@@ -9,16 +9,33 @@
 /* Begin PBXBuildFile section */
 		0168DC3A2E8A3E6500BF1FFF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0168DC342E8A3E6500BF1FFF /* README.md */; };
 		0168DD0F2EAFB55E00BF1FFF /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 0168DD0E2EAFB55E00BF1FFF /* CodeScanner */; };
+		0168DE8F2ECCD38100BF1FFF /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0168DE8E2ECCD38100BF1FFF /* Config.xcconfig */; };
+		0168DEB92ECE1E8C00BF1FFF /* Config.example.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0168DEB82ECE1E8C00BF1FFF /* Config.example.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0168DC162E87B48600BF1FFF /* ReCoShelf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReCoShelf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0168DC342E8A3E6500BF1FFF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		0168DE8E2ECCD38100BF1FFF /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		0168DEB82ECE1E8C00BF1FFF /* Config.example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.example.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0168DE912ECCD57600BF1FFF /* Exceptions for "ReCoShelf" folder in "ReCoShelf" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 0168DC152E87B48600BF1FFF /* ReCoShelf */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0168DC182E87B48600BF1FFF /* ReCoShelf */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0168DE912ECCD57600BF1FFF /* Exceptions for "ReCoShelf" folder in "ReCoShelf" target */,
+			);
 			path = ReCoShelf;
 			sourceTree = "<group>";
 		};
@@ -39,6 +56,8 @@
 		0168DC0D2E87B48600BF1FFF = {
 			isa = PBXGroup;
 			children = (
+				0168DE8E2ECCD38100BF1FFF /* Config.xcconfig */,
+				0168DEB82ECE1E8C00BF1FFF /* Config.example.xcconfig */,
 				0168DC182E87B48600BF1FFF /* ReCoShelf */,
 				0168DC172E87B48600BF1FFF /* Products */,
 				0168DC342E8A3E6500BF1FFF /* README.md */,
@@ -121,6 +140,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0168DEB92ECE1E8C00BF1FFF /* Config.example.xcconfig in Resources */,
+				0168DE8F2ECCD38100BF1FFF /* Config.xcconfig in Resources */,
 				0168DC3A2E8A3E6500BF1FFF /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -140,6 +161,7 @@
 /* Begin XCBuildConfiguration section */
 		0168DC222E87B48700BF1FFF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0168DE8E2ECCD38100BF1FFF /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -203,6 +225,7 @@
 		};
 		0168DC232E87B48700BF1FFF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0168DE8E2ECCD38100BF1FFF /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -259,6 +282,7 @@
 		};
 		0168DC252E87B48700BF1FFF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0168DE8E2ECCD38100BF1FFF /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -268,6 +292,8 @@
 				DEVELOPMENT_TEAM = UJ7HQ8R757;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ReCoShelf/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Your camera is used to scan release's barcode.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -289,6 +315,7 @@
 		};
 		0168DC262E87B48700BF1FFF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0168DE8E2ECCD38100BF1FFF /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -298,6 +325,8 @@
 				DEVELOPMENT_TEAM = UJ7HQ8R757;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ReCoShelf/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Your camera is used to scan release's barcode.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
