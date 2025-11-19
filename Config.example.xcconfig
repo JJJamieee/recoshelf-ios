@@ -1,0 +1,13 @@
+//
+//  Config.example.xcconfig
+//  ReCoShelf
+//
+//  Created by Jamie on 2025/11/20.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+DISCOGS_API_URL =
+DISCOGS_API_KEY =
+DISCOGS_API_SECRET =
