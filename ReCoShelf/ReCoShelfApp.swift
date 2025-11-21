@@ -13,7 +13,7 @@ struct ReCoShelfApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .modelContainer(for: Release.self)
+                .modelContainer(for: [Release.self, Track.self, Artist.self])
         }
     }
 }

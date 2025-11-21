@@ -11,23 +11,47 @@ import SwiftData
 struct ReleaseDetailView: View {
     let release: Release
     @Environment(\.modelContext) private var context
+    @Query private var existedRelease: [Release]
+    @State private var showAddSuccessToast = false
+    @State private var showRemoveSuccessToast = false
+    
+    init(release: Release) {
+        self.release = release
+        let releaseId = release.id
+        _existedRelease = Query(filter: #Predicate { $0.id == releaseId })
+    }
     
     var body: some View {
         VStack {
             AsyncImage(url: release.imageURL)
                 .frame(width: 200, height: 200)
             
-            Button {
-                // TODO replace fake data
-                context.insert(Release(id: 1, title: "Album1", artists: [Artist(id: 1, name: "artist1"), Artist(id: 2, name: "artist2")], releaseYear: "1999", country: "Japan", genres: ["POP"], tracklist: [Track(position: "1", duration: "3:14", title: "Track1"), Track(position: "2", duration: "4:05", title: "Track2")]))
-            } label: {
-                Label("Add to My Music Collection", systemImage: "heart.fill")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 30)
-                    .padding(.vertical, 10)
-                    .background(Color.pink)
-                    .clipShape(Capsule())
+            if (existedRelease.isEmpty) {
+                Button {
+                    context.insert(release)
+                    showAddSuccessToast = true
+                } label: {
+                    Label("Add to Collection", systemImage: "heart.fill")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 30)
+                        .padding(.vertical, 10)
+                        .background(.pink)
+                        .clipShape(Capsule())
+                }
+            } else {
+                Button {
+                    context.delete(release)
+                    showRemoveSuccessToast = true
+                } label: {
+                    Label("Remove from Collection", systemImage: "heart.slash.fill")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 30)
+                        .padding(.vertical, 10)
+                        .background(.gray)
+                        .clipShape(Capsule())
+                }
             }
             
             VStack(alignment: .leading) {
@@ -49,6 +73,8 @@ struct ReleaseDetailView: View {
         }
         .padding()
         .buttonStyle(.plain)
+        .toast(isPresented: $showAddSuccessToast, message: "Add Successfully!", style: .success)
+        .toast(isPresented: $showRemoveSuccessToast, message: "Remove Successfully!", style: .success)
     }
 }
 
