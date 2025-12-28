@@ -13,6 +13,7 @@ struct MusicCollectionView: View {
     @State private var showAddReleasePage = false
     @State private var isEditing = false
     @State private var selectedReleases = Set<Release>()
+    @StateObject private var viewModel = MusicCollectionViewModel()
     @Environment(\.modelContext) private var context
     
     var body: some View {
@@ -68,11 +69,11 @@ struct MusicCollectionView: View {
                             toggleSelection(release)
                         } label: {
                             MusicCollectionItemView(
-                                id: release.id,
+                                id: release.sourceReleaseID,
                                 title: release.title,
                                 artist: release.artists.map(\.name).joined(separator: ", "),
                                 releaseYear: release.releaseYear,
-                                selectedReleaseIds: selectedReleases.map { $0.id },
+                                selectedReleaseIds: selectedReleases.map { $0.sourceReleaseID },
                                 isEditing: $isEditing
                             )
                         }
@@ -82,11 +83,11 @@ struct MusicCollectionView: View {
                             ReleaseDetailView(release: release)
                         } label: {
                             MusicCollectionItemView(
-                                id: release.id,
+                                id: release.sourceReleaseID,
                                 title: release.title,
                                 artist: release.artists.map(\.name).joined(separator: ", "),
                                 releaseYear: release.releaseYear,
-                                selectedReleaseIds: selectedReleases.map { $0.id },
+                                selectedReleaseIds: selectedReleases.map { $0.sourceReleaseID },
                                 isEditing: $isEditing
                             )
                         }
@@ -95,6 +96,18 @@ struct MusicCollectionView: View {
                 .listStyle(.plain)
             }
             .padding(20)
+            .task { await viewModel.syncReleases(context: context) }
+            .refreshable { await viewModel.syncReleases(context: context) }
+            .overlay(alignment: .bottomTrailing) {
+                if viewModel.isSyncing {
+                    ProgressView()
+                        .padding()
+                }
+            }
+            
+            if let errorMessage = viewModel.errorMessage {
+                ToastView(message: errorMessage, style: .failed)
+            }
         }
     }
     
