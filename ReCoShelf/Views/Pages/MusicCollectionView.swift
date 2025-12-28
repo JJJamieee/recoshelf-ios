@@ -68,11 +68,11 @@ struct MusicCollectionView: View {
                             toggleSelection(release)
                         } label: {
                             MusicCollectionItemView(
-                                id: release.id,
+                                id: release.sourceReleaseID,
                                 title: release.title,
                                 artist: release.artists.map(\.name).joined(separator: ", "),
                                 releaseYear: release.releaseYear,
-                                selectedReleaseIds: selectedReleases.map { $0.id },
+                                selectedReleaseIds: selectedReleases.map { $0.sourceReleaseID },
                                 isEditing: $isEditing
                             )
                         }
@@ -82,11 +82,11 @@ struct MusicCollectionView: View {
                             ReleaseDetailView(release: release)
                         } label: {
                             MusicCollectionItemView(
-                                id: release.id,
+                                id: release.sourceReleaseID,
                                 title: release.title,
                                 artist: release.artists.map(\.name).joined(separator: ", "),
                                 releaseYear: release.releaseYear,
-                                selectedReleaseIds: selectedReleases.map { $0.id },
+                                selectedReleaseIds: selectedReleases.map { $0.sourceReleaseID },
                                 isEditing: $isEditing
                             )
                         }
