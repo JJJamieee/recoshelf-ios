@@ -75,7 +75,10 @@ struct UserReleaseAPI {
             throw APIError.invalidURL
         }
         
-        guard let releaseData = try? JSONEncoder().encode(ReleaseRequestData(from: release)) else {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+
+        guard let releaseData = try? encoder.encode(ReleaseRequestData(from: release)) else {
             throw APIError.badRequestData
         }
 
