@@ -52,7 +52,7 @@ struct ScanReleaseBarcodeView: View {
                 let releaseData = await getReleaseById(searchReleases[0].id)
                 if let unwrapped = releaseData {
                     getReleaseSuccess = true
-                    resultRelease = unwrapped.toReleaseModel()
+                    resultRelease = unwrapped.toReleaseModel(barcode: result.string)
                 }
             }
         case .failure(let error):

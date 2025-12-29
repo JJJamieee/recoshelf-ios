@@ -19,8 +19,8 @@ struct ReleaseResponse: Decodable {
     let thumb: String
     
     // TODO use thumb for imageURL for now, consider make imageURL to accept multiple resources
-    func toReleaseModel() -> Release {
-        return Release(sourceReleaseID: self.id, title: self.title, artists: self.artists.map{ $0.toArtistModel() }, releaseYear: String(self.year), country: self.country, genres: self.genres, tracklist: self.tracklist.map{ $0.toTrackModel() }, imageURL: URL(string: self.thumb), fetchAt: Date())
+    func toReleaseModel(barcode: String) -> Release {
+        return Release(sourceReleaseID: self.id, title: self.title, artists: self.artists.map{ $0.toArtistModel() }, releaseYear: String(self.year), country: self.country, genres: self.genres, tracklist: self.tracklist.map{ $0.toTrackModel() }, imageURL: URL(string: self.thumb), barcode: barcode, fetchAt: Date())
     }
 }
 
