@@ -46,8 +46,13 @@ struct ReleaseDetailView: View {
                 }
             } else {
                 Button {
-                    context.delete(release)
-                    showRemoveSuccessToast = true
+                    guard let storedRelease = existedRelease.first else { return }
+                    Task {
+                        await viewModel.removeRelease(storedRelease, context: context)
+                        if viewModel.errorMessage == nil {
+                            showRemoveSuccessToast = true
+                        }
+                    }
                 } label: {
                     Label("Remove from Collection", systemImage: "heart.slash.fill")
                         .font(.headline)

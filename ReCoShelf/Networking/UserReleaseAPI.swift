@@ -103,6 +103,53 @@ struct UserReleaseAPI {
             throw APIError.decodingFailed
         }
     }
+    
+    func deleteUserRelease(releaseID: Int) async throws {
+        guard let endpoint = URL(string: "/v1/me/releases/" + String(releaseID), relativeTo: baseURL) else {
+            throw APIError.invalidURL
+        }
+
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "DELETE"
+        
+        let (_, response) = try await session.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse, 204 == httpResponse.statusCode else {
+            let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
+            throw APIError.requestFailed(statusCode: statusCode)
+        }
+    }
+    
+    func batchDeleteUserReleases(releases: [Release]) async throws {
+        guard let endpoint = URL(string: "/v1/me/releases/batch-delete", relativeTo: baseURL) else {
+            throw APIError.invalidURL
+        }
+        
+        let encoder = JSONEncoder()
+        guard let deleteIDsData = try? encoder.encode(DeleteIDsData(from: releases)) else {
+            throw APIError.badRequestData
+        }
+
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = deleteIDsData
+
+        let (_, response) = try await session.data(for: request)
+
+        guard let httpResponse = response as? HTTPURLResponse, 200 == httpResponse.statusCode else {
+            let statusCode = (response as? HTTPURLResponse)?.statusCode ?? -1
+            throw APIError.requestFailed(statusCode: statusCode)
+        }
+    }
+}
+
+private struct DeleteIDsData: Codable {
+    let ids: [Int]
+    
+    init(from releases: [Release]) {
+        self.ids = releases.compactMap { $0.id }
+    }
 }
 
 private struct ReleaseRequestData: Codable {

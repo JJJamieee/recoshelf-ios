@@ -40,11 +40,15 @@ struct MusicCollectionView: View {
                             }
                         } else {
                             Button(action: {
-                                selectedReleases.forEach { context.delete($0) }
-                                try? context.save()
-                                
-                                isEditing = false
-                                selectedReleases = []
+                                Task {
+                                    let releasesToDelete = Array(selectedReleases)
+                                    await viewModel.deleteReleases(releasesToDelete, context: context)
+
+                                    if viewModel.errorMessage == nil {
+                                        isEditing = false
+                                        selectedReleases = []
+                                    }
+                                }
                             }) {
                                 Image(systemName: "trash.circle")
                             }
