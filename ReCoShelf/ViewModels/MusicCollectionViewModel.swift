@@ -39,6 +39,24 @@ final class MusicCollectionViewModel: ObservableObject {
             errorMessage = error.localizedDescription
         }
     }
+    
+    func deleteReleases(_ releases: [Release], context: ModelContext) async {
+        guard !isSyncing else { return }
+        guard !releases.isEmpty else { return }
+
+        isSyncing = true
+        defer { isSyncing = false }
+
+        do {
+            let api = try apiFactory()
+            try await api.batchDeleteUserReleases(releases: releases)
+            let refreshed = try await api.fetchUserReleases()
+            try replaceReleases(with: refreshed, context: context)
+            errorMessage = nil
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
 
     // TODO implement a better sync stategy
     private func replaceReleases(with newReleases: [Release], context: ModelContext) throws {
