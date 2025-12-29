@@ -12,13 +12,14 @@ struct ReleaseDetailView: View {
     let release: Release
     @Environment(\.modelContext) private var context
     @Query private var existedRelease: [Release]
+    @StateObject private var viewModel = ReleaseDetailViewModel()
     @State private var showAddSuccessToast = false
     @State private var showRemoveSuccessToast = false
     
     init(release: Release) {
         self.release = release
-        let releaseId = release.id
-        _existedRelease = Query(filter: #Predicate { $0.id == releaseId })
+        let sourceReleaseID = release.sourceReleaseID
+        _existedRelease = Query(filter: #Predicate { $0.sourceReleaseID == sourceReleaseID })
     }
     
     var body: some View {
@@ -28,8 +29,12 @@ struct ReleaseDetailView: View {
             
             if (existedRelease.isEmpty) {
                 Button {
-                    context.insert(release)
-                    showAddSuccessToast = true
+                    Task {
+                        await viewModel.addRelease(release, context: context)
+                        if viewModel.errorMessage == nil {
+                            showAddSuccessToast = true
+                        }
+                    }
                 } label: {
                     Label("Add to Collection", systemImage: "heart.fill")
                         .font(.headline)
@@ -75,9 +80,19 @@ struct ReleaseDetailView: View {
         .buttonStyle(.plain)
         .toast(isPresented: $showAddSuccessToast, message: "Add Successfully!", style: .success)
         .toast(isPresented: $showRemoveSuccessToast, message: "Remove Successfully!", style: .success)
+        .overlay(alignment: .bottom) {
+            if viewModel.isSyncing {
+                ProgressView()
+                    .padding()
+            }
+        }
+        
+        if let errorMessage = viewModel.errorMessage {
+            ToastView(message: errorMessage, style: .failed)
+        }
     }
 }
 
 #Preview {
-    ReleaseDetailView(release: Release(sourceReleaseID: 1, title: "Album1", artists: [Artist(id: 1, name: "artist1"), Artist(id: 2, name: "artist2")], releaseYear: "1999", country: "Japan", genres: ["POP"], tracklist: [Track(position: "1", duration: "3:14", title: "Track1"), Track(position: "2", duration: "4:05", title: "Track2")], fetchAt: Date()))
+    ReleaseDetailView(release: Release(sourceReleaseID: 1, title: "Album1", artists: [Artist(id: 1, name: "artist1"), Artist(id: 2, name: "artist2")], releaseYear: "1999", country: "Japan", genres: ["POP"], tracklist: [Track(position: "1", duration: "3:14", title: "Track1"), Track(position: "2", duration: "4:05", title: "Track2")], barcode: "12345678", fetchAt: Date()))
 }
