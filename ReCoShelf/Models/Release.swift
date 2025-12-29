@@ -19,9 +19,10 @@ class Release: Identifiable {
     var genres: [String]
     var tracklist: [Track]
     var imageURL: URL?
+    var barcode: String
     var fetchedAt: Date?
     
-    init(id: Int? = nil, sourceReleaseID: Int, title: String, artists: [Artist], releaseYear: String, country: String, genres: [String], tracklist: [Track], imageURL: URL? = nil, fetchAt: Date? = nil) {
+    init(id: Int? = nil, sourceReleaseID: Int, title: String, artists: [Artist], releaseYear: String, country: String, genres: [String], tracklist: [Track], imageURL: URL? = nil, barcode: String, fetchAt: Date? = nil) {
         self.id = id
         self.sourceReleaseID = sourceReleaseID
         self.title = title
@@ -31,6 +32,7 @@ class Release: Identifiable {
         self.genres = genres
         self.tracklist = tracklist
         self.imageURL = imageURL
+        self.barcode = barcode
         self.fetchedAt = fetchAt
     }
 }
