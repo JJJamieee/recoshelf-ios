@@ -36,6 +36,28 @@ final class ReleaseDetailViewModel: ObservableObject {
             errorMessage = error.localizedDescription
         }
     }
+    
+    // Remove the given release from the user's collection.
+    // On success, the release is deleted from SwiftData.
+    func removeRelease(_ release: Release, context: ModelContext) async {
+        guard !isSyncing else { return }
+        guard let releaseID = release.id else {
+            errorMessage = "Unable to remove this release."
+            return
+        }
+
+        isSyncing = true
+        defer { isSyncing = false }
+
+        do {
+            let api = try apiFactory()
+            try await api.deleteUserRelease(releaseID: releaseID)
+            try deleteReleaseFromStore(release, context: context)
+            errorMessage = nil
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
 
     // Persist the server's release into SwiftData, replacing any existing copy.
     private func saveReleaseToStore(_ release: Release, context: ModelContext) throws {
@@ -53,6 +75,21 @@ final class ReleaseDetailViewModel: ObservableObject {
 
             // Persist the latest release from the API.
             context.insert(release)
+            try context.save()
+        }
+    }
+    
+    // Remove the matching release from SwiftData.
+    private func deleteReleaseFromStore(_ release: Release, context: ModelContext) throws {
+        try context.transaction {
+            let targetID = release.sourceReleaseID
+            let predicate = #Predicate<Release> { candidate in
+                candidate.sourceReleaseID == targetID
+            }
+            let descriptor = FetchDescriptor<Release>(predicate: predicate)
+            let existing = try context.fetch(descriptor)
+
+            existing.forEach { context.delete($0) }
             try context.save()
         }
     }
